@@ -6,6 +6,29 @@ import (
 	"strconv"
 )
 
+type StartTimeEntryData struct {
+	Created_with string   `json:"created_with"`
+	Description  string   `json:"description"`
+	Pid          int      `json:"pid"`
+	Tags         []string `json:"tags"`
+}
+
+type StartTimeEntry struct {
+	Time_entry StartTimeEntryData `json:"time_entry"`
+}
+
+func MakeStartTimeEntryJson(ste_json StartTimeEntryData) ([]byte, error) {
+	st := StartTimeEntry{
+		Time_entry: ste_json,
+	}
+	jsonBytes, err := json.Marshal(st)
+	if err != nil {
+		fmt.Println("JSON Marshal error:", err)
+		return nil, err
+	}
+	return jsonBytes, nil
+}
+
 type CurrentRespData struct {
 	Id          int    `json:"id"`
 	Wid         int    `json:"wid"`
